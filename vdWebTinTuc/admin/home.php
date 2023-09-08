@@ -1,6 +1,11 @@
 <?php
     $user = new apps_libs_userIdentity();
     $router = new apps_libs_router();
+    
+    if(!$user->isLogin()){
+        $user->logout();
+        $router->loginPage();
+    }
 ?>
 <html>
     <body>
@@ -11,9 +16,9 @@
         </div>
         <div>
             <ul>
-                <li><a href="<?= $router->createUrl('post/post')?>">Manage Post</a></li>
-                <li><a href="<?= $router->createUrl('category/cate')?>">Manage Category</a></li>
-                <li><a href="<?= $router->createUrl('user/users')?>">Manage Users</a></li>
+                <li><a href="<?= $router->createUrl('posts/index')?>">Manage Post</a></li>
+                <li><a href="<?= $router->createUrl('categories/index')?>">Manage Category</a></li>
+                <li><a href="<?= $router->createUrl('users/index')?>">Manage User</a></li>
             </ul>
         </div>
     </body>
