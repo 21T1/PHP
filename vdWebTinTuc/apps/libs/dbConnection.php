@@ -51,16 +51,17 @@
                 
         }
         
-        public function buildQueryParams($params) {
+        public function buildQueryParams($params = []) {
             $default = [
                 "SELECT"=>"*",
                 "WHERE"=>"",
                 "OTHER"=>"",
                 "params"=>"",
                 "field"=>"",
-                "value"=>""
+                "value"=>[],
+                "JOIN"=>""
             ];
-            //Overwrite $default
+            //Overwrite $default   
             $this->queryParams = array_merge($default, $params);
             return $this;
         }
@@ -75,10 +76,11 @@
         public function select() {
             $sql = "SELECT ".$this->queryParams['SELECT']
                    ." FROM ".$this->tableName
+                   ." ".$this->queryParams['JOIN']
                    ." ".$this->buildCondition($this->queryParams['WHERE'])
                    ." ".$this->queryParams['OTHER'];
             $query = $this->query($sql, $this->queryParams['params']);
-            
+    
             return $query->fetchAll(PDO::FETCH_ASSOC);
         }
         public function selectOne() {
@@ -101,14 +103,14 @@
                     ." SET ".$this->queryParams['value']
                     ." ".$this->buildCondition($this->queryParams['WHERE'])
                     ." ".$this->queryParams['OTHER'];
-            return $this->query($sql);
+            return $this->query($sql, $this->queryParams['params']);
+            
         }
         public function delete() {
             $sql = "DELETE FROM ".$this->tableName
                     ." ".$this->buildCondition($this->queryParams['WHERE'])
                     ." ".$this->queryParams['OTHER'];
-            return $this->query($sql);
-            
+            return $this->query($sql, $this->queryParams['params']);
         }
     }
 ?>
