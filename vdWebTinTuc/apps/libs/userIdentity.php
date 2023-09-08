@@ -1,4 +1,5 @@
 <?php
+    session_start();
     class apps_libs_userIdentity{
         public $username;
         public $password;
