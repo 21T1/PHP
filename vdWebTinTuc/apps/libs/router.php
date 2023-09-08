@@ -36,8 +36,7 @@
         }
 
         public function pageNotFound() {
-            echo "Page Not Found";
-            die();
+            $this->pageError('Page Not Found');
         }
 
         public function createUrl($url, $param = []) {
@@ -61,6 +60,11 @@
 
         public function loginPage() {
             $this->redirect("login");
+        }
+        
+        public function pageError($error) {
+            echo $error;
+            die();
         }
     }
 ?>
