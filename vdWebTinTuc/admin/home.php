@@ -5,7 +5,8 @@
 <html>
     <body>
         <div>
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout</a></p>
+            <p>Hi <?= $user->getSESSION('username')?>,</p> 
+            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
             <h1>ADMIN PAGE</h1>
         </div>
         <div>
