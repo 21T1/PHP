@@ -16,6 +16,7 @@
         </div>
         <div>
             <ul>
+                <li><a href="<?= $router->createUrl('public/index')?>">Home Page</a></li>
                 <li><a href="<?= $router->createUrl('posts/index')?>">Manage Post</a></li>
                 <li><a href="<?= $router->createUrl('categories/index')?>">Manage Category</a></li>
                 <li><a href="<?= $router->createUrl('users/index')?>">Manage User</a></li>
