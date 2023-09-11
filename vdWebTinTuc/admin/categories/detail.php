@@ -23,7 +23,16 @@
             "name"=>""
         ];   
     //Add new category
-    if($router->getPOST("submit") && $router->getPOST("name")){
+    $checkName = true;
+    if($router->getPOST("name")){
+        $query = $categories->buildQueryParams(["OTHER"=>"ORDER BY name ASC"])->select();
+        foreach($query as $row)
+            if($router->getPOST("name") == $row['name']){
+                $checkName = false;
+                break;
+            }
+    }
+    if($router->getPOST("submit") && $router->getPOST("name") && $checkName){
         $params = [
             ":name"=>$router->getPOST("name")
         ];
@@ -57,7 +66,8 @@
         </div>
         <!-- Detail of category's id = $id  -->
         <form action="<?php echo $router->createUrl('categories/detail', ["id"=>$cateDetail["id"]])?>" method="POST">
-            <input type="text" name="name" value="<?= $cateDetail["name"]?>"><br>
+            <input type="text" name="name" value="<?= $cateDetail["name"]?>">
+            <p style="display: inline"><?= $checkName ? "" : "ERROR: Category exists"?></p><br>
             <input type="submit" name="submit" value="Add">
             <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("categories/index")?>'">
         </form>
