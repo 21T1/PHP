@@ -23,8 +23,19 @@
             "username"=>"",
             "password"=>""
         ];   
-    //Add new 
-    if($router->getPOST("submit") && $router->getPOST("username") && $router->getPOST("password")){
+    //Add new
+    $checkName = true;
+    if($router->getPOST("username")){
+        $query = $users->buildQueryParams(["OTHER"=>"ORDER BY username ASC"])->select();
+        foreach($query as $row)
+            if($router->getPOST("username") > $row['username'])
+                break;
+            else if($router->getPOST("username") === $row['username']){
+                $checkName = false;
+                break;
+            }
+    }
+    if($router->getPOST("submit") && $router->getPOST("username") && $checkName && $router->getPOST("password")){
         $params = [
             ":username"=>$router->getPOST("username"),
             ":password"=>md5($router->getPOST("password")),
@@ -33,7 +44,7 @@
         $result = false;
         if($id){
             $params[':id'] = $id;
-            $result = $categories->buildQueryParams([
+            $result = $users->buildQueryParams([
                 "value"=>"username=:username, password=:password",
                 "WHERE"=>"id=:id",
                 "params"=>$params
@@ -58,8 +69,9 @@
             <h1><?= $id ? "View " : "Create New " ?>User: <?= $userDetail["username"]?></h1>
         </div>
         <form action="<?php echo $router->createUrl('users/detail', ["id"=>$userDetail["id"]])?>" method="POST">
-            Username:<br>
-            <input type="text" name="username" value="<?= $userDetail["username"]?>"><br>
+            Username:<br >
+            <input type="text" name="username" value="<?= $userDetail["username"]?>">
+            <p style="display: inline"><?= $checkName ? "" : "ERROR: Username exists"?></p><br>
             Password:<br>
             <input type="password" name="password" value="<?= $userDetail["password"]?>"><br>
             <input type="submit" name="submit" value="Add">
