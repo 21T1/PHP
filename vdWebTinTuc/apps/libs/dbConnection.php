@@ -101,15 +101,13 @@
         public function update() {
             $sql = "UPDATE ".$this->tableName
                     ." SET ".$this->queryParams['value']
-                    ." ".$this->buildCondition($this->queryParams['WHERE'])
-                    ." ".$this->queryParams['OTHER'];
+                    ." ".$this->buildCondition($this->queryParams['WHERE']);
             return $this->query($sql, $this->queryParams['params']);
             
         }
         public function delete() {
             $sql = "DELETE FROM ".$this->tableName
-                    ." ".$this->buildCondition($this->queryParams['WHERE'])
-                    ." ".$this->queryParams['OTHER'];
+                    ." ".$this->buildCondition($this->queryParams['WHERE']);
             return $this->query($sql, $this->queryParams['params']);
         }
     }
