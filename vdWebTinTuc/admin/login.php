@@ -14,22 +14,45 @@
         $identity->password = $password;
         if($identity->login())
             $router->homePage();
-        else
-            echo "Username or Password incorrect";
     }
 ?>
 
 <html>
+    <head>
+        <title>Admin Login</title>
+        <link rel="stylesheet" href="../CSS/login.css" type="text/css">
+    </head>
     <body>
-        <div>
+        <div class="login">
             <p>Login Demo</p>
+            <form action="<?php echo $router->createUrl('login') ?>" method="POST">
+                <div id="form-text">
+                    <input type="text" name="account" placeholder="Username"><br>
+                </div>
+                <div id="form-text">
+                    <input type="password" name="password" placeholder="Password"><br>
+                </div>
+                <div id="error">
+                    <?php
+                    if($router->getPOST('submit') && !$identity->login()){
+                        ?>
+
+                            <p>Username or Password incorrect</p>
+
+                        <?php
+                    }else{
+                        ?>
+                            <p></p>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <div id="form-btn">
+                    <input type="submit" name="submit" value="login">
+                </div>
+            
+            
+                </form>
         </div>
-        <form action="<?php echo $router->createUrl('login') ?>" method="POST">
-            Account:<br>
-            <input type="text" name="account"><br>
-            Password:<br>
-            <input type="password" name="password"><br>
-            <input type="submit" name="submit" value="login">
-        </form>
     </body>
 </html>
