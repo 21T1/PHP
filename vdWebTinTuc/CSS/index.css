@@ -1,0 +1,44 @@
+.title{
+    margin-bottom: 30px;
+}
+a{
+    text-decoration: none;
+    color: currentColor;
+}
+.title a{
+    padding: 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 3px solid currentColor;
+    margin-left: 40px;
+}
+.title a:hover{
+   color: var(--effect-color);
+   transition:  .3s;
+}
+.show-data{
+    display: flex;
+    justify-content: center;
+}
+.show-data #column td{
+    font-weight: bold;
+    background-color: var(--effect-color);
+    border: 3px solid var(--dark-color);
+}
+.show-data td{
+    padding: 5px;
+    text-align: center;
+}
+.show-data tr{
+    background-color: var(--light-color); 
+}
+#name{
+    font-style: italic;
+    font-weight: bold;
+}
+#name, #edit, #del{
+    cursor: pointer;
+}
+#name:hover, #edit:hover, #del:hover{
+    color: var(--effect-color);
+}
