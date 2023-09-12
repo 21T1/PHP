@@ -20,15 +20,20 @@
             $router->pageError("Cannot delete this post")
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/delete.css">
+        <title>Delete Post</title>
+        <?php include 'head.php'?>
+    </head>
     <body>
         <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1>Do you want to delete <?= $postDetail["name"]?></h1>
+            <h1>Do you want to delete&ensp;<i><?= $postDetail["name"]?></i></h1>
         </div>
-        <form action="<?php echo $router->createUrl('posts/delete', ["id"=>$id])?>" method="POST">
-            <input type="submit" name="submit" value="Yes">
-            <input type="button" value="No" onclick="window.location.href = '<?= $router->createUrl("posts/index")?>'">
-        </form>
+        <div class="form">
+            <form action="<?php echo $router->createUrl('posts/delete', ["id"=>$id])?>" method="POST">
+                <input id='btn' type="submit" name="submit" value="Yes">
+                <input id='btn' type="button" value="No" onclick="window.location.href = '<?= $router->createUrl("posts/index")?>'">
+            </form>
+        </div>
     </body>
 </html>
