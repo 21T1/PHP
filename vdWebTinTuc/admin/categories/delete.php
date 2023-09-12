@@ -20,15 +20,20 @@
             $router->pageError("Cannot delete this category")
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/delete.css">
+        <title>Delete Category</title>
+        <?php include 'head.php'?>
+    </head>
     <body>
         <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1>Do you want to delete <?= $cateDetail["name"]?></h1>
+            <h1>Do you want to delete&ensp;<i><?= $cateDetail["name"]?></i></h1>
         </div>
-        <form action="<?php echo $router->createUrl('categories/delete', ["id"=>$id])?>" method="POST">
-            <input type="submit" name="submit" value="Yes">
-            <input type="button" value="No" onclick="window.location.href = '<?= $router->createUrl("categories/index")?>'">
-        </form>
+        <div class="form">
+            <form action="<?php echo $router->createUrl('categories/delete', ["id"=>$id])?>" method="POST">
+                <input id='btn' type="submit" name="submit" value="Yes">
+                <input id='btn' type="button" value="No" onclick="window.location.href = '<?= $router->createUrl("categories/index")?>'">
+            </form>
+        </div>
     </body>
 </html>
