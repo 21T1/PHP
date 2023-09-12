@@ -27,7 +27,7 @@
     if($router->getPOST("name")){
         $query = $categories->buildQueryParams(["OTHER"=>"ORDER BY name ASC"])->select();
         foreach($query as $row)
-            if($router->getPOST("name") == $row['name']){
+            if($router->getPOST("name") == $row['name'] && $row['id'] != $router->getGET("id")){
                 $checkName = false;
                 break;
             }
@@ -38,7 +38,7 @@
         ];
     
         $result = false;
-        if($id){
+        if($id && $router->getPOST("submit") == "Edit"){
             $params[':id'] = $id;
             $result = $categories->buildQueryParams([
                 "value"=>"name=:name",
@@ -58,18 +58,50 @@
     }
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/detail.css">
+        <title>Category Detail</title>
+        <?php include 'head.php'?>
+    </head>
     <body>
         <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1><?= $id ? "View " : "Create New " ?>Category: <?= $cateDetail["name"]?></h1>
+            <h1><?= $id ? "View " : "Create New " ?>Category:&ensp;<i><?= $cateDetail["name"]?></i></h1>
         </div>
         <!-- Detail of category's id = $id  -->
-        <form action="<?php echo $router->createUrl('categories/detail', ["id"=>$cateDetail["id"]])?>" method="POST">
-            <input type="text" name="name" value="<?= $cateDetail["name"]?>">
-            <p style="display: inline"><?= $checkName ? "" : "ERROR: Category exists"?></p><br>
-            <input type="submit" name="submit" value="Add">
-            <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("categories/index")?>'">
-        </form>
+        <div class="form">
+            <form action="<?php echo $router->createUrl('categories/detail', ["id"=>$cateDetail["id"]])?>" method="POST">
+                <div id="form-text">
+                    <p id="name">Category: </p>
+                    <?php
+                    if($router->getPOST("submit")){
+                        if(!$checkName){
+                            ?>
+                                <p id="error">Category exists</p>
+                            <?php
+                        }else if($cateDetail["name"] == ""){
+                            ?>
+                                <p id="error">Enter Name</p>
+                            <?php
+                        }
+                    }
+                    ?>
+                    <input type="text" name="name" value="<?= $cateDetail["name"]?>">
+                </div>
+                <div id='form-btn'>
+                    <?php
+                        if($id){
+                            ?>
+                                <input type="submit" name="submit" value="Edit">
+                            <?php
+                        }else{
+                            ?>
+                                <input type="submit" name="submit" value="Add">
+                            <?php
+                        }
+                    ?>
+                    <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("categories/index")?>'">
+                </div>
+            </form>
+        </div>
     </body>
 </html>
