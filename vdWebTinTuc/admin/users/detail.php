@@ -28,13 +28,12 @@
     if($router->getPOST("username")){
         $query = $users->buildQueryParams(["OTHER"=>"ORDER BY username ASC"])->select();
         foreach($query as $row)
-            if($router->getPOST("username") > $row['username'])
-                break;
-            else if($router->getPOST("username") === $row['username']){
+            if($router->getPOST("username") == $row['username'] && $row['id'] != $router->getGET("id")){
                 $checkName = false;
                 break;
             }
     }
+    $checkError = true;
     if($router->getPOST("submit") && $router->getPOST("username") && $checkName && $router->getPOST("password")){
         $params = [
             ":username"=>$router->getPOST("username"),
@@ -42,40 +41,74 @@
         ];
     
         $result = false;
-        if($id){
+        if($id && $router->getPOST("submit") == "Edit"){
             $params[':id'] = $id;
             $result = $users->buildQueryParams([
                 "value"=>"username=:username, password=:password",
                 "WHERE"=>"id=:id",
                 "params"=>$params
             ])->update();
-        } else
+        } else{
             $result = $users->buildQueryParams([
                 "field"=>"(username, password) VALUES (?, ?)",
                 "value"=>[$params[":username"], $params[":password"]]
             ])->insert();
-    
+        }
         if($result)
             $router->redirect('users/index');
         else
             $router->pageError('Cannot update user');
-    }
+    }else if($router->getPOST("username") == "" || $router->getPOST("password") == "")
+        $checkError = false;
+        
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/detail.css">
+        <title>User Detail</title>
+        <?php include 'head.php'?>
+    </head>
     <body>
         <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1><?= $id ? "View " : "Create New " ?>User: <?= $userDetail["username"]?></h1>
+            <h1><?= $id ? "View " : "Create New " ?>User:&ensp;<i><?= $userDetail["username"]?></i></h1>
         </div>
-        <form action="<?php echo $router->createUrl('users/detail', ["id"=>$userDetail["id"]])?>" method="POST">
-            Username:<br >
-            <input type="text" name="username" value="<?= $userDetail["username"]?>">
-            <p style="display: inline"><?= $checkName ? "" : "ERROR: Username exists"?></p><br>
-            Password:<br>
-            <input type="password" name="password" value="<?= $userDetail["password"]?>"><br>
-            <input type="submit" name="submit" value="Add">
-            <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("users/index")?>'">
-        </form>
+        <div class="form">
+            <form action="<?php echo $router->createUrl('users/detail', ["id"=>$userDetail["id"]])?>" method="POST">
+                <div id="form-text">
+                    <p id="name">Username:</p>
+                    <?php
+                        if($router->getPOST("submit") && !$checkName){
+                            ?>
+                                <p id="error">Username exists</p>
+                            <?php
+                        }
+                        if(!$checkError){
+                            ?>
+                                <p id="error">Enter Full Form</p>
+                            <?php
+                        }
+                    ?>
+                    <input type="text" name="username" value="<?= $userDetail["username"]?>">
+                </div>
+                <div id="form-text">
+                    <p id="name">Password:</p>
+                    <input type="password" name="password" value="<?= $userDetail["password"]?>">
+                </div>
+                <div id='form-btn'>
+                    <?php
+                        if($id){
+                            ?>
+                                <input type="submit" name="submit" value="Edit">
+                            <?php
+                        }else{
+                            ?>
+                                <input type="submit" name="submit" value="Add">
+                            <?php
+                        }
+                    ?>
+                    <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("users/index")?>'">
+                </div>
+            </form>
+        </div>
     </body>
 </html>
