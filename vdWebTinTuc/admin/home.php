@@ -8,18 +8,19 @@
     }
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/home.css">
+        <title>Admin Page</title>
+    </head>
     <body>
-        <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1>ADMIN PAGE</h1>
-        </div>
-        <div>
+        <?php include("head.php"); ?>
+        <h1>Admin Page</h1>
+        <div class="list">
             <ul>
-                <li><a href="<?= $router->createUrl('../public/index')?>">Home Page</a></li>
-                <li><a href="<?= $router->createUrl('posts/index')?>">Manage Post</a></li>
-                <li><a href="<?= $router->createUrl('categories/index')?>">Manage Category</a></li>
-                <li><a href="<?= $router->createUrl('users/index')?>">Manage User</a></li>
+                <li onclick="location.href='<?= $router->createUrl('../public/index')?>'">Home Page</li>
+                <li onclick="location.href='<?= $router->createUrl('posts/index')?>'">Manage Post</li>
+                <li onclick="location.href='<?= $router->createUrl('categories/index')?>'">Manage Category</li>
+                <li onclick="location.href='<?= $router->createUrl('users/index')?>'">Manage User</li>
             </ul>
         </div>
     </body>
