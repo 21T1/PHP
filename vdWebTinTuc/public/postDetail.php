@@ -21,51 +21,31 @@
     <head>
         <meta charset="UTF-8">
         <title>Website</title>
+        <?php include 'navbar.php'?>
         <style type="text/css">
-            .tag{
-                width: 100%;
-                height: 50px;
-                background-color: lightgray;
+            .detail{
+                margin-top: 30px;
                 display: flex;
-                align-items: center;
-            }
-            .tag a, #home{
-                font-size: 20px;
-                padding: 15px;
-            }
-            #home{
-                margin-left: 50px;
+                justify-content: center;
+                flex-direction: column;
+                background-color: var(--light-color);
+                padding: 10px;
             }
             .detail p{
-                margin-left: 20px;
-                font-size: 15px;
+                margin-bottom: 0px;
             }
             #name{
                 font-size: 20px;
                 font-weight: bold;
             }
-            #info{
-                color: grey;
-            }
             #desc{
                 font-style: italic;
-                border-bottom: 1px solid;
+                border-bottom: 1px solid var(--border-color);
             }
         </style>
         
     </head>
     <body>
-        <h1>WEBSITE TIN TUC</h1>
-        <div class="tag">
-            <a href="<?= $router->createUrl('home')?>" id='home'>Home</a>
-            <?php
-                foreach($listCate as $row){
-                ?>
-            <a href="<?= $router->createUrl('home', ["cate_id"=>$row["id"]])?>"><?= $row["name"]?></a>
-                <?php
-                }
-            ?>
-        </div>
         <div class="detail">
             <p id="name"><?= $postDetail['name']?></p>
             <p id="info">Post by: <?= $postDetail['cate_name']?> at <?= $postDetail['created_time']?></p>
