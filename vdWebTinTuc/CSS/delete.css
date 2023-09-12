@@ -1,0 +1,24 @@
+.form{
+    display: flex;
+    justify-content: center;
+}
+.form form{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#btn{
+    width: 25vh;
+    font-size: 25px;
+    padding: 10px;
+    color: var(--light-color);
+    background-color: var(--dark-color);
+    border-radius: 5px;
+    border: 3px solid var(--dark-color);
+    cursor: pointer;
+}
+#btn:hover{
+    border: 3px solid var(--border-color);
+    color: var(--dark-color);
+    background-color: var(--effect-color);
+}
