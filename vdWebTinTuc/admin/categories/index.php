@@ -8,16 +8,19 @@
     $router = new apps_libs_router();
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/index.css">
+        <title>Manage Categories</title>
+        <?php include 'head.php'?>
+    </head>
     <body>
-        <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
+        <div class="title">
             <h1>MANAGE CATEGORIES</h1>
-            <a href="<?= $router->createUrl('categories/detail')?>">+ Add new</a>
+            <a href="<?= $router->createUrl('categories/detail')?>">Add new</a>
         </div>
         <div class="show-data">
-            <table style="width: 100%" border="1">
-                <tr>
+            <table style="width: 100%">
+                <tr id="column">
                     <td>Id</td>
                     <td>Name</td>
                     <td>Created Time</td>
@@ -28,12 +31,11 @@
                     ?>
                         <tr>
                             <td><?= $row['id']?></td>
-                            <td><a href="<?= $router->createUrl('categories/detail', ['id'=>$row['id']])?>">
+                            <td id="name" onclick="location.href='<?= $router->createUrl('categories/detail', ['id'=>$row['id']])?>'">
                                 <?= $row['name']?>
-                                </a>
                             </td>
                             <td><?= $row['created_time']?></td>
-                            <td><a href="<?= $router->createUrl('categories/delete', ["id"=>$row['id']])?>">Delete</a></td>
+                            <td id="del" onclick="location.href='<?= $router->createUrl('categories/delete', ["id"=>$row['id']])?>'"><i class="fa-solid fa-xmark"></i></td>
                         </tr>
                     <?php
                     }
