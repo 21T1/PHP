@@ -9,7 +9,6 @@
     
     $id = intval($router->getGET("id"));
     
-    //
     if($id){
         // SELECT * FROM posts WHERE id = $id LIMIT 1
         $postDetail = $posts->buildQueryParams([
@@ -27,7 +26,9 @@
             "cate_id"=>""
         ];   
     //Add new 
-    if($router->getPOST("submit") && $router->getPOST("name")
+    $checkError = true;
+    if($router->getPOST("submit")){
+        if($router->getPOST("name")
             && $router->getPOST("content") 
             && $router->getPOST("description")
             && $router->getPOST("category")){
@@ -39,7 +40,7 @@
         ];
     
         $result = false;
-        if($id){
+        if($id && $router->getPOST("submit") == "Edit"){
             $params[':id'] = $id;
             $result = $posts->buildQueryParams([
                 "value"=>"name=:name, content=:content, description=:description, cate_id=:category",
@@ -56,36 +57,89 @@
             $router->redirect('posts/index');
         else
             $router->pageError('Cannot update db');
+    }else
+        $checkError = false;
     }
 ?>
 <html>
+    <head>
+        <link rel="stylesheet" href="../CSS/detail.css">
+        <title>Post Detail</title>
+        <?php include 'head.php'?>
+        <style>
+            select, textarea{
+                font-size: 15px;
+                border: none;
+                outline: none;
+                border-bottom: 2px solid gray;
+            }
+            select{
+                height: 40px;
+                cursor: pointer;
+                overflow-y: scroll; 
+            }
+            textarea{
+                margin-left: 15px;
+                padding: 10px;
+                width: 90%;
+                height: 100px;
+            }
+        </style>
+    </head>
     <body>
         <div>
-            <p>Hi <?= $user->getSESSION('username')?>,</p> 
-            <p>Welcome to Demo, <a href="<?= $router->createUrl('logout')?>">Logout?</a></p>
-            <h1><?= $id ? "View " : "Create New " ?>Post: <?= $postDetail["name"]?></h1>
+            <h1><?= $id ? "View " : "Create New " ?>Post:&ensp;<i><?= $postDetail["name"]?></i></h1>
         </div>
-        <form action="<?php echo $router->createUrl('posts/detail', ["id"=>$postDetail["id"]])?>" method="POST">
-            Title:<br>
-            <input type="text" name="name" value="<?= $postDetail["name"]?>"><br>
-            Category:<br>
-            <select name="category">
-                <?php
-                    $listCate = $category->buildSelectBox();
-                    foreach($listCate as $key=>$value){
-                        ?>
-                        <!--Select category-->
-                        <option <?= $key == $postDetail["cate_id"] ? "selected" : ""?> value="<?= $key?>"><?= $value?></option>
+        <div class='form'>
+            <form action="<?php echo $router->createUrl('posts/detail', ["id"=>$postDetail["id"]])?>" method="POST">
+                <div id='form-text'>
+                    <p id='name'>Title:</p>
+                    <?php
+                        if($router->getPOST("submit") && !$checkError){
+                            ?>
+                                <p id="error">Enter Full Form</p>
+                            <?php
+                        }
+                    ?>
+                    <input type="text" name="name" value="<?= $postDetail["name"]?>">
+                </div>
+                <div id='form-text'>
+                    <p id='name'>Category:</p>
+                    <select name="category">
                         <?php
-                    }
-                ?>
-            </select><br>
-            Description:<br>
-            <textarea name="description"><?= $postDetail["description"]?></textarea><br>
-            Content:<br>
-            <textarea name="content"><?= $postDetail["content"]?></textarea><br>
-            <input type="submit" name="submit" value="Post">
-            <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("posts/index")?>'">
-        </form>
+                            $listCate = $category->buildSelectBox();
+                            foreach($listCate as $key=>$value){
+                                ?>
+                                <!--Select category-->
+                                <option <?= $key == $postDetail["cate_id"] ? "selected" : ""?> value="<?= $key?>"><?= $value?></option>
+                                <?php
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div id='form-text'>
+                    <p id='name'>Description:</p>
+                    <textarea name="description"><?= $postDetail["description"]?></textarea>
+                </div>
+                <div id='form-text'>
+                    <p id='name'>Content:</p>
+                    <textarea name="content"><?= $postDetail["content"]?></textarea>
+                </div>
+                <div id='form-btn'>
+                    <?php
+                        if($id){
+                            ?>
+                                <input type="submit" name="submit" value="Edit">
+                            <?php
+                        }else{
+                            ?>
+                                <input type="submit" name="submit" value="Add">
+                            <?php
+                        }
+                    ?>
+                    <input type="button" value="Cancel" onclick="window.location.href = '<?= $router->createUrl("posts/index")?>'">
+                </div>
+            </form>
+        </div>
     </body>
 </html>
