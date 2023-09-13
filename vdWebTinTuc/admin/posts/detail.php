@@ -66,7 +66,12 @@
         <link rel="stylesheet" href="../CSS/detail.css">
         <title>Post Detail</title>
         <?php include 'head.php'?>
+        <script src="//cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
+            .form form{
+                width: 100vh;
+            }
             select, textarea{
                 font-size: 15px;
                 border: none;
@@ -123,7 +128,7 @@
                 </div>
                 <div id='form-text'>
                     <p id='name'>Content:</p>
-                    <textarea name="content"><?= $postDetail["content"]?></textarea>
+                    <textarea name="post-content" id="post-content"><?= $postDetail["content"]?></textarea>
                 </div>
                 <div id='form-btn'>
                     <?php
@@ -142,4 +147,7 @@
             </form>
         </div>
     </body>
+    <script>
+        CKEDITOR.replace('post-content');
+    </script>
 </html>
