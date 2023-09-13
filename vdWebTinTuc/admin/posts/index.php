@@ -20,7 +20,7 @@
     <body>
         <div class="title">        
             <h1>MANAGE POST</h1>
-            <a href="<?= $router->createUrl('posts/addNew')?>">+ Add new</a>
+            <a href="<?= $router->createUrl('posts/detail')?>">+ Add new</a>
         </div>
         <div class="show-data">
             <table style="width: 100%">
@@ -37,7 +37,7 @@
                     ?>
                         <tr>
                             <td><?= $row['id']?></td>
-                            <td id="name" onclick="location.href='<?= $router->createUrl('posts/addNew', ['id'=>$row['id']])?>'">
+                            <td id="name" onclick="location.href='<?= $router->createUrl('posts/detail', ['id'=>$row['id']])?>'">
                                 <?= $row['name']?>
                             </td>
                             <td><i><?= $row['cate_name']?></i></td>
