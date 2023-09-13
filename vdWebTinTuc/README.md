@@ -6,7 +6,7 @@
 - Password: *admin*
 
 ## 2. Install & Run
-Create database and run SQL file to view a demo
+Create a database and run .sql file to view a demo
 
 ## 3. Admin Page's Function
 ### 3.1 Home Page
