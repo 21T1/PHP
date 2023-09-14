@@ -92,8 +92,8 @@
         </style>
     </head>
     <body>
-        <div>
-            <h1><?= $id ? "View " : "Create New " ?>Post:&ensp;<i><?= $postDetail["name"]?></i></h1>
+        <div class="title">
+            <h1><u><?= $id ? "View " : "Create New " ?>Post:</u>&ensp;<i><?= $postDetail["name"]?></i></h1>
         </div>
         <div class='form'>
             <form action="<?php echo $router->createUrl('posts/detail', ["id"=>$postDetail["id"]])?>" method="POST">
@@ -106,7 +106,7 @@
                             <?php
                         }
                     ?>
-                    <input type="text" name="name" value="<?= $postDetail["name"]?>">
+                    <textarea name="name"><?= $postDetail["name"]?></textarea>
                 </div>
                 <div id='form-text'>
                     <p id='name'>Category:</p>
@@ -128,7 +128,7 @@
                 </div>
                 <div id='form-text'>
                     <p id='name'>Content:</p>
-                    <textarea name="post-content" id="post-content"><?= $postDetail["content"]?></textarea>
+                    <textarea name="content" id="content"><?= $postDetail["content"]?></textarea>
                 </div>
                 <div id='form-btn'>
                     <?php
@@ -148,6 +148,7 @@
         </div>
     </body>
     <script>
-        CKEDITOR.replace('post-content');
+        CKEDITOR.replace('content');
+        CKEDITOR.config.height = 500;
     </script>
 </html>
