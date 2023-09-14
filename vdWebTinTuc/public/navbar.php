@@ -14,7 +14,7 @@ $limitCate = $categories->buildQueryParams([
         <?php include '../admin/head.php'?>
     </head>
     <body>
-        <h1>WEBSITE TIN TUC</h1>
+        <h1>NEWS WEBSITE</h1>
         <div class="tag">
             <a href="<?= $router->createUrl('../public/index') ?>" id='home'>Home</a>
             <!-- Navbar -->
