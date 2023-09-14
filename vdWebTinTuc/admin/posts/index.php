@@ -14,7 +14,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="../CSS/index.css">
-        <title>Manage Categories</title>
+        <title>Manage Posts</title>
         <?php include 'head.php'?>
     </head>
     <body>
