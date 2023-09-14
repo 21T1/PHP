@@ -150,5 +150,6 @@
     <script>
         CKEDITOR.replace('content');
         CKEDITOR.config.height = 500;
+        CKEDITOR.addCss('.cke_editable img { max-width: 100% !important; height: auto !important; }');
     </script>
 </html>
