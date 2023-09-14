@@ -6,10 +6,10 @@ a{
     color: currentColor;
 }
 .title a{
-    padding: 5px 10px;
+    padding: 30px 10px;
     font-size: 18px;
     font-weight: bold;
-    border-bottom: 3px solid currentColor;
+    text-decoration: underline;
     margin-left: 40px;
 }
 .title a:hover{
@@ -28,6 +28,9 @@ a{
 .show-data td{
     padding: 5px;
     text-align: center;
+}
+.show-data #name{
+    text-align: left;
 }
 .show-data tr{
     background-color: var(--light-color); 
