@@ -18,7 +18,7 @@
             <h1>MANAGE CATEGORIES</h1>
             <a href="<?= $router->createUrl('categories/detail')?>">Add new</a>
         </div>
-        <div class="show-data">
+        <div class="show-data" style="font-family: vPoppinsR;">
             <table style="width: 100%">
                 <tr id="column">
                     <td>Id</td>
