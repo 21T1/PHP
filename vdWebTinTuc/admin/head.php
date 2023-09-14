@@ -6,8 +6,6 @@
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300&display=swap');
-
             :root{
                 --dark-color: #232946;
                 --light-color: #fffffe;
@@ -15,8 +13,16 @@
                 --border-color: #121629;
                 --read-color: #d4d8f0;
             }
+            @font-face {
+                font-family: vPoppinsR;
+                src: url(PoppinsRegular.ttf);
+               }
+            @font-face{
+               font-family: vPoppinsB;
+               src: url(PoppinsExtraBold.ttf);
+            }
             body{
-                font-family: 'poppins';
+                font-family: vPoppinsR;
                 background-color: var(--read-color); 
                 color: var(--dark-color);
             }
@@ -34,11 +40,19 @@
                 text-decoration: none;
                 color: currentColor;
             }
-            h1{
+            .title{
+                width: 100%;
                 display: flex;
                 justify-content: center;
                 align-content: center;
-                margin: 20px 0 30px;
+            }
+            .title h1{
+                width: 100vh;
+                font-family: vPoppinsB;
+                margin: 10px 0;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
             }
             .head i{
                 cursor: pointer;
