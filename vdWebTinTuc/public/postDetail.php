@@ -1,6 +1,7 @@
 <?php
     $router = new apps_libs_router();
 
+    $page = 0;
     $categories = new apps_models_categories();
     $listCate = $categories->buildQueryParams()->select();
     $posts = new apps_models_posts();
@@ -17,7 +18,6 @@
         if(!$postDetail)
             $router->pageNotFound();
     }
-    var_dump($_SERVER["HTTP_REFERER"]);
 ?>
 <html>
     <head>
@@ -53,8 +53,11 @@
                 font-style: italic;
                 border-bottom: 1px solid var(--border-color);
             }
+            img { 
+                max-width: 100% !important;
+                height: auto !important; 
+            }
         </style>
-        
     </head>
     <body>
         <div class="container">
